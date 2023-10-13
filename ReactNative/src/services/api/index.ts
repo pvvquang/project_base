@@ -1,5 +1,11 @@
 import {ApiConstant} from '@/constants';
-import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import {getTokenFromAsyncStore, handleRefreshToken} from '@/utils/auth';
+import axios, {
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
+import {HttpStatusCode} from './type';
 
 const defaultConfig = (headers: any) => ({
   baseURL: ApiConstant.BASE_URL,
@@ -7,7 +13,7 @@ const defaultConfig = (headers: any) => ({
   timeout: ApiConstant.TIMEOUT,
 });
 
-const loginConfigInterceptors = (axiosClient: any) => {
+const loginConfigInterceptors = (axiosClient: AxiosInstance) => {
   axiosClient.interceptors.response.use(
     (res: AxiosResponse) => res.data,
     (res: any) => Promise.reject(res.response?.data),
@@ -15,26 +21,41 @@ const loginConfigInterceptors = (axiosClient: any) => {
   return axiosClient;
 };
 
-const configInterceptors = (axiosClient: any) => {
+const configInterceptors = (axiosClient: AxiosInstance) => {
   axiosClient.interceptors.response.use(
-    (res: AxiosResponse) => res.data,
-    (res: any) =>
-      Promise.reject(
-        res?.response?.data?.errors || {status: res?.response?.status},
-      ),
+    async (res: AxiosResponse) => res.data,
+    async error => {
+      const originalConfig = error.config;
+      if (error.response) {
+        if (
+          error.response.status === HttpStatusCode.UNAUTHORIZED &&
+          !originalConfig._retry
+        ) {
+          originalConfig._retry = true;
+
+          try {
+            await handleRefreshToken();
+            return axiosClient(originalConfig);
+          } catch (_error: any) {
+            if (_error.response && _error.response.data) {
+              return Promise.reject(_error.response.data);
+            }
+            return Promise.reject(_error);
+          }
+        } else {
+          return Promise.reject(error?.response?.data);
+        }
+      }
+      return Promise.reject(error);
+    },
   );
   axiosClient.interceptors.request.use(
-    (config: AxiosRequestConfig = {}) => {
-      const accessToken = '';
-      // const accessToken = Cookies.get(ApiConstant.ACCESS_TOKEN);
-      if (!accessToken) return config;
-      return {
-        ...config,
-        headers: {
-          ...(config.headers || {}),
-          Authorization: 'Bearer ' + accessToken,
-        },
-      };
+    async (config: InternalAxiosRequestConfig<any>) => {
+      const {accessToken} = await getTokenFromAsyncStore();
+      if (accessToken) {
+        config.headers.Authorization = 'Bearer ' + accessToken;
+      }
+      return config;
     },
     (error: any) => Promise.reject(error),
   );
