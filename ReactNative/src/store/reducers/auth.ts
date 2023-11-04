@@ -14,13 +14,13 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginRequest: (state: any, action: PayloadAction<string>) => {
+    setToken: (state: any, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
   },
   extraReducers: builder => {},
 });
 
-export const {loginRequest} = authSlice.actions;
-export const authSelector = (state: RootState) => state['auth'];
+export const {setToken} = authSlice.actions;
+export const authSelector = (state: RootState) => state.auth;
 export default authSlice.reducer;

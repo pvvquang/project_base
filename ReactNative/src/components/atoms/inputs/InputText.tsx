@@ -83,7 +83,9 @@ const InputText: FC<InputTextProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    width: '100%',
+  },
   input: {
     height: 50,
     fontSize: themes.fontSizes.md,

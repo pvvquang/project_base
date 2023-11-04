@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import AppNavigation from './AppNavigation';
 import AuthNavigation from './AuthNavigation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import SplashScreen from 'react-native-splash-screen';
-import {loginRequest} from '@/store/reducers/auth';
+import {setToken} from '@/store/reducers/auth';
+import {checkTokenExpire} from '@/utils/auth';
 
 function Navigation() {
   const dispatch = useAppDispatch();
@@ -13,20 +13,8 @@ function Navigation() {
 
   useEffect(() => {
     (async () => {
-      const tokenExpiration = await AsyncStorage.getItem('tokenExpiration');
-      const tokenStore = await AsyncStorage.getItem('token');
-      const expirationDate = new Date(tokenExpiration as string);
-      const currentDate = new Date();
-      if (!tokenStore || !tokenExpiration) {
-        dispatch(loginRequest(''));
-      } else if (currentDate > expirationDate) {
-        await AsyncStorage.removeItem('token');
-        await AsyncStorage.removeItem('tokenExpiration');
-        await AsyncStorage.removeItem('userId');
-        dispatch(loginRequest(''));
-      } else {
-        dispatch(loginRequest(tokenStore as string));
-      }
+      const accessToken = await checkTokenExpire();
+      dispatch(setToken(accessToken));
       setTimeout(() => {
         SplashScreen?.hide();
       }, 100);

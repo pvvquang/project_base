@@ -23,7 +23,7 @@ const ButtonBase = ({
     }
 
     if (fullWidth) {
-      _style = [..._style, {alignSelf: 'auto'}];
+      _style = [..._style, {alignSelf: 'auto', width: '100%'}];
     }
     return _style;
   }, [size, fullWidth]);

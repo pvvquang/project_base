@@ -1,11 +1,20 @@
-import {View, Text} from 'react-native';
+import ButtonBase from '@/components/atoms/Button';
+import ViewCenter from '@/components/atoms/layouts/ViewCenter';
+import {useAppDispatch} from '@/hooks';
+import {setToken} from '@/store/reducers/auth';
 import React from 'react';
+import {Text} from 'react-native';
 
 const SettingScreen = () => {
+  const dispatch = useAppDispatch();
+  function logout() {
+    dispatch(setToken(''));
+  }
   return (
-    <View>
+    <ViewCenter>
       <Text>SettingScreen</Text>
-    </View>
+      <ButtonBase title="Logout" fullWidth onPress={logout} />
+    </ViewCenter>
   );
 };
 
