@@ -2,6 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 // #import "RNSplashScreen"
+#import <Firebase.h>
 
 @implementation AppDelegate
 
@@ -16,6 +17,7 @@
   if (ret == YES) {
     // Set the splash screen to show by default.
     // [RNSplashScreen show];
+    [FIRApp configure];
   }
   return ret;
 }
