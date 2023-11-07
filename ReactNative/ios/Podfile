@@ -44,7 +44,9 @@ target 'ReactNative' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-  use_frameworks! :linkage => :static
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
   $RNFirebaseAsStaticFramework = true
 
   target 'ReactNativeTests' do

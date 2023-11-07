@@ -8,6 +8,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+  [FIRApp configure];
+
   self.moduleName = @"ReactNative";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
@@ -17,7 +20,6 @@
   if (ret == YES) {
     // Set the splash screen to show by default.
     // [RNSplashScreen show];
-    [FIRApp configure];
   }
   return ret;
 }
