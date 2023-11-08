@@ -1,11 +1,12 @@
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 import React from 'react';
+import ViewCenter from '@/components/atoms/layouts/ViewCenter';
 
 const PointDetailScreen = () => {
   return (
-    <View>
-      <Text>PointDetailScreen</Text>
-    </View>
+    <ViewCenter>
+      <Text>History Point</Text>
+    </ViewCenter>
   );
 };
 
