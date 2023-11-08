@@ -53,7 +53,7 @@ const TabNavigator = () => {
         name={TAB_NAVIGATOR.MISSION_TAB}
         component={MissionScreen}
         options={{
-          tabBarLabel: '적립',
+          tabBarLabel: 'Mission',
           tabBarIcon: ({color}) => getTabBarIcon({color, xmlIcon: MissionIcon}),
         }}
       />
@@ -61,7 +61,7 @@ const TabNavigator = () => {
         name={TAB_NAVIGATOR.POINT_TAB}
         component={PointDetailScreen}
         options={{
-          tabBarLabel: '포인트내역',
+          tabBarLabel: 'Point',
           tabBarIcon: ({color}) => getTabBarIcon({color, xmlIcon: NoteIcon}),
         }}
       />
@@ -69,7 +69,7 @@ const TabNavigator = () => {
         name={TAB_NAVIGATOR.STORE_TAB}
         component={StoreScreen}
         options={{
-          tabBarLabel: '스토어 ',
+          tabBarLabel: 'Store',
           tabBarIcon: ({color}) => getTabBarIcon({color, xmlIcon: BagIcon}),
         }}
       />
@@ -77,7 +77,7 @@ const TabNavigator = () => {
         name={TAB_NAVIGATOR.SETTING_TAB}
         component={SettingScreen}
         options={{
-          tabBarLabel: '설정',
+          tabBarLabel: 'Settings',
           tabBarIcon: ({color}) => getTabBarIcon({color, xmlIcon: SettingIcon}),
         }}
       />

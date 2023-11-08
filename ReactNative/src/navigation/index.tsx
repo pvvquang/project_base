@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '@/hooks';
 import SplashScreen from 'react-native-splash-screen';
 import {setToken} from '@/store/reducers/auth';
 import {checkTokenExpire} from '@/utils/auth';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 function Navigation() {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ function Navigation() {
   return (
     <NavigationContainer>
       {token ? <AppNavigation /> : <AuthNavigation />}
+      <Toast />
     </NavigationContainer>
   );
 }
