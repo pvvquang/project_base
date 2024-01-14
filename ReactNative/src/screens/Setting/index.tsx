@@ -1,6 +1,6 @@
 import ButtonBase from '@/components/atoms/Button';
 import ViewCenter from '@/components/atoms/layouts/ViewCenter';
-import {useAppDispatch} from '@/hooks';
+import {useAppDispatch} from '@/store/store';
 import {setToken} from '@/store/reducers/auth';
 import React from 'react';
 import {Text} from 'react-native';
