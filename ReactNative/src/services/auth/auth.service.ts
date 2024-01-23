@@ -13,7 +13,7 @@ export const authService = api.injectEndpoints({
       },
     }),
     getUserInfo: build.query<any, void>({
-      query: () => ({url: '/users', method: 'GET'}),
+      query: () => ({url: '/users'}),
     }),
   }),
 });
