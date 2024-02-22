@@ -1,9 +1,13 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {SCREENS} from '../../constants/';
+import {AppScreen} from '../../constants/';
 import TabNavigator from '../MainTabNavigation';
 
-const Stack = createStackNavigator();
+type AppStackParamList = {
+  [AppScreen.MainTab]: {};
+};
+
+const Stack = createStackNavigator<AppStackParamList>();
 
 const AppNavigation = () => {
   return (
@@ -13,8 +17,8 @@ const AppNavigation = () => {
         gestureEnabled: true,
         gestureDirection: 'horizontal',
       }}
-      initialRouteName={SCREENS.MAIN_TAB}>
-      <Stack.Screen name={SCREENS.MAIN_TAB} component={TabNavigator} />
+      initialRouteName={AppScreen.MainTab}>
+      <Stack.Screen name={AppScreen.MainTab} component={TabNavigator} />
     </Stack.Navigator>
   );
 };

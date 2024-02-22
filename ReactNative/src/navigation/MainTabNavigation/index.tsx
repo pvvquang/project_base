@@ -15,7 +15,15 @@ import {TAB_NAVIGATOR} from '@/constants';
 import {StyleSheet} from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
 
-const Tab = createBottomTabNavigator();
+type BottomTabStackParamList = {
+  [TAB_NAVIGATOR.HOME_TAB]: {};
+  [TAB_NAVIGATOR.MISSION_TAB]: {};
+  [TAB_NAVIGATOR.POINT_TAB]: {};
+  [TAB_NAVIGATOR.STORE_TAB]: {};
+  [TAB_NAVIGATOR.SETTING_TAB]: {};
+};
+
+const Tab = createBottomTabNavigator<BottomTabStackParamList>();
 
 type TabBarIcon = {
   focused?: boolean;
